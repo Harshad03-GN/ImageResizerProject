@@ -5,6 +5,7 @@ import os
 
 # Load connection string from environment variable
 connection_string = os.getenv("DefaultEndpointsProtocol=https;AccountName=imgresizerr;AccountKey=z5/ubD6+e8Ap1CAJwpHwI48iZnvV1693yciZDbIZmtatlf0ajLUkKpLYxMRRPivt0frZxY0Vq5/V+ASt1CYDtw==;EndpointSuffix=core.windows.net")
+
 container_name = "input-images"
 output_container_name = "output-images"
 
