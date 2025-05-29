@@ -1,40 +1,31 @@
-# 🖼️ Image Resizer with Azure Blob Storage & GitHub Actions CI/CD
+🖼️ Image Resizer with Azure Blob Storage & GitHub Actions CI/CD
+Hey there! This project is a simple Python tool that resizes images stored in Azure Blob Storage. It takes your original images, makes them smaller or bigger (whichever you want), and saves the resized copies back to the cloud.
 
-This is a Python-based image resizer that processes images from Azure Blob Storage and saves resized versions back to Azure. It also includes a GitHub Actions workflow for DevOps-style automation.
+Also, it has an automated pipeline using GitHub Actions so you can easily test and deploy it without hassle.
 
----
+📌 What It Does
+Takes .jpg and .png images and resizes them to a size you choose
 
-## 📌 Features
+Uses Azure Blob Storage to get images from the cloud and upload resized ones back
 
-- Resize `.jpg`, `.png` images to a fixed or custom size
-- Uses **Azure Blob Storage** to read/write images from the cloud
-- CI/CD integration with **GitHub Actions**
-- Easy to extend with GUI, API, or containerization (Docker)
+Comes with GitHub Actions setup so you can automate testing and deployment
 
----
+Ready for you to add cool stuff later — like a web interface or Docker container
 
-## ☁️ Technologies Used
+☁️ Tech Stack
+Python 3.11
 
-- Python 3.11
-- Pillow (image processing)
-- Azure Blob Storage SDK
-- GitHub Actions (CI/CD)
-- Git (for version control)
+Pillow (for image resizing)
 
----
+Azure Blob Storage SDK
 
-## 🚀 How It Works
+GitHub Actions (for automation)
 
-1. Upload images to Azure Blob container named `input`
-2. Run the script (`main.py`) or trigger it via CI/CD
-3. Resized images will be saved to a Blob container named `output`
+Git (version control)
 
----
+🚀 How To Use It
+Upload your images to an Azure Blob container called input
 
-## 🧪 Run Locally
+Run the Python script (main.py) or trigger it automatically via GitHub Actions
 
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/YOUR_USERNAME/image-resizer-azure-devops.git
-cd image-resizer-azure-devops
+Your resized images will appear in another Blob container called output
