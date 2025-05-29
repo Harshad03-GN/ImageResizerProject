@@ -1,14 +1,38 @@
-import azure.functions as func
-import datetime
-import json
-import logging
+from azure.storage.blob import BlobServiceClient
+from PIL import Image
+from io import BytesIO
+import os
 
-app = func.FunctionApp()
+# Load connection string from environment variable
+connection_string = os.getenv("DefaultEndpointsProtocol=https;AccountName=imgresizerr;AccountKey=z5/ubD6+e8Ap1CAJwpHwI48iZnvV1693yciZDbIZmtatlf0ajLUkKpLYxMRRPivt0frZxY0Vq5/V+ASt1CYDtw==;EndpointSuffix=core.windows.net")
+container_name = "input-images"
+output_container_name = "output-images"
 
+# Initialize BlobServiceClient
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+container_client = blob_service_client.get_container_client(container_name)
+output_container_client = blob_service_client.get_container_client(output_container_name)
 
-@app.blob_trigger(arg_name="myblob", path="blobname",
-                               connection="BlobStorageConnectionString") 
-def ImageResizeFunction(myblob: func.InputStream):
-    logging.info(f"Python blob trigger function processed blob"
-                f"Name: {myblob.name}"
-                f"Blob Size: {myblob.length} bytes")
+def resize_image(blob_name):
+    # Download image from Blob Storage
+    blob_client = container_client.get_blob_client(blob_name)
+    blob_data = blob_client.download_blob()
+    image = Image.open(BytesIO(blob_data.readall()))
+
+    # Resize image
+    image = image.resize((800, 600))  # Example size
+
+    # Save resized image to BytesIO
+    output = BytesIO()
+    image.save(output, format="JPEG")
+    output.seek(0)
+
+    # Upload resized image back to Blob Storage
+    output_blob_name = f"resized_{blob_name}"
+    output_blob_client = output_container_client.get_blob_client(output_blob_name)
+    output_blob_client.upload_blob(output, overwrite=True)
+
+    print(f"Resized image uploaded as {output_blob_name}")
+
+# Example usage
+resize_image("example.jpg")
