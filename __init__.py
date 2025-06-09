@@ -20,4 +20,5 @@ def main(myblob: func.InputStream):
         logging.info("Image processed successfully.")
     except Exception as e:
         logging.error(f"Error processing image: {e}")
-harshad
+
+
